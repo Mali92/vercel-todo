@@ -16,6 +16,7 @@ const Header = () => {
   const hours = dayjs().format('HH')
 
   return (
+    
     <div className={"header"}>
       <div className={'date-calendar'}>
         <span> <FontAwesomeIcon icon={faCalendarDays} /> {formattedDate} </span>

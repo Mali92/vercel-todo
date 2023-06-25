@@ -24,12 +24,6 @@ a:hover {
 }
 
 body {
-  background: linear-gradient(
-    90deg,
-    rgba(62, 180, 137, 1) 0%,
-    rgb(46 137 104) 100%
-  );
-
   margin: 0;
   min-width: 320px;
   min-height: 100vh;

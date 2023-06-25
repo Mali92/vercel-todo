@@ -27,6 +27,7 @@ const TodoForm = ({ onSubmitText }) => {
           onChange={handleClickChange}
           value={val}
           placeholder="Unesite nešto"
+          className={'input-change'}
         />
         <input type="submit" value={'Pošalji'} />
       </form>
