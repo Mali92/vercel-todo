@@ -56,11 +56,13 @@ const TodoApp = () => {
 
       <div className="wrapper">
 
-        <div className={'handle-theme'}>
+        <div  className={'handle-theme'}>
+
             <label>
               <input type="checkbox" onChange={handleChangeTheme} checked={isDarkTheme} />
               Tamna Tema ( D na tastaturi )
             </label>
+            
            
         </div>
 
