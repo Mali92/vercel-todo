@@ -14,6 +14,7 @@ const Header = () => {
   const formattedDate = dayjs().format('DD. MMMM YYYY.');
   const timeHours = dayjs().format('HH:mm')
   const hours = dayjs().format('HH')
+  const isHours = hours >= 6 && hours < 12 ? 'Dobro jutro' :  hours >= 12 && hours <= 18 ? 'Dobar dan' : hours >= 19 && hours <= 22 ? 'Dobro vece' : 'Laku noc';
 
   return (
     
@@ -34,10 +35,8 @@ const Header = () => {
       <div>
 
         <h2> <FontAwesomeIcon icon={faClock} /> {timeHours} </h2>
-        {/* Prebaciti u funkciju  */}
-        <h3> { hours >= 6 && hours < 12 ? 'Dobro jutro' :  hours >= 12 && hours <= 18 ? 'Dobar dan' : hours >= 19 && hours <= 22 ? 'Dobro vece' : 'Laku noc' }, Nikola. </h3>
+        <h3> { isHours }, Nikola. </h3>
 
-    
       </div>
 
 

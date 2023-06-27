@@ -5,6 +5,7 @@ import ShowHiddenLists from "../components/ShowHiddenLists";
 import Header from "../components/Header";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrashCan, faPlusCircle, faMinusCircle } from '@fortawesome/free-solid-svg-icons'
+import Quote from "../components/Quote";
 
 
 const TodoApp = () => {
@@ -12,20 +13,25 @@ const TodoApp = () => {
   const [todos, setTodos] = useState([]);
   const [show, setShow] = useState(true);
   const [isDarkTheme, setDarkTheme] = useState(false);
-
+  const [quote, setQuote] = useState(null)
 
   useEffect(() => {
-   const handleKeyDown = (e) => {
-      if( e.key === 'd' ) {
-        setDarkTheme( perv => !perv );
-      }
-   } 
-    window.addEventListener('keydown', handleKeyDown);
-    return () => {
-      window.removeEventListener('keydown', handleKeyDown);
-    }
-  }, [isDarkTheme])
+    const fetchQuotes = () => {
+      fetch("https://type.fit/api/quotes")
+      .then((res) => res.json())
+      .then((data) => {
   
+        const randomQuote = (data) => {
+          return data[Math.floor(Math.random() * data.length)]
+        }
+      
+        const rnquote = randomQuote(data)
+        setQuote(rnquote)
+      })
+    }
+    fetchQuotes();
+  }, []);
+
 
   const handleChangeTheme = () => {
     setDarkTheme( perv => !perv );
@@ -60,7 +66,7 @@ const TodoApp = () => {
 
             <label>
               <input type="checkbox" onChange={handleChangeTheme} checked={isDarkTheme} />
-              Tamna Tema ( D na tastaturi )
+              Tamna Tema
             </label>
             
            
@@ -68,7 +74,7 @@ const TodoApp = () => {
 
         <Header />
         
-        <div className={'form-wrapper'}      style={ { backgroundColor: isDarkTheme ? 'transparent' : '#161a2b', border: isDarkTheme ? '2px solid #359470' : '2px solid transparent'  } } >
+        <div className={'form-wrapper'}  style={ { backgroundColor: isDarkTheme ? 'transparent' : '#161a2b', border: isDarkTheme ? '2px solid #359470' : '2px solid transparent'  } } >
         
           <TodoForm onSubmitText={handleSubmitForm} />
           <ShowHiddenLists isShown={show} >
@@ -76,10 +82,11 @@ const TodoApp = () => {
           </ShowHiddenLists>
 
           <span>Ukupno: {todosCount} </span> 
-          
+        
           <button className={'show'} onClick={handleShowToggle} > {  show ? <FontAwesomeIcon icon={faMinusCircle} /> :  <FontAwesomeIcon icon={faPlusCircle} />  } </button>
           <button className={'clearAll'} onClick={handleClearAllTodos}>  <FontAwesomeIcon icon={faTrashCan} /> </button>
 
+          <Quote text={quote?.text} author={quote?.author}/>
 
         </div>
       </div>

@@ -12,13 +12,12 @@ const TodoForm = ({ onSubmitText }) => {
     e.preventDefault();
     onSubmitText?.(val);
     setValue("");
-    setTimeout(() => alert('Dodali ste task!'), 1000);
+    setTimeout(() => alert('Dodali ste task!'), 500);
   };
 
   return (
     <Fragment>
       <h2>Šta planiraš danas da radiš?</h2>
-      {/* <h2>What is your main focus for today?</h2> */}
       <form onSubmit={handleOnSubmitForm}>
         <input
           required
