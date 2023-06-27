@@ -56,6 +56,23 @@ const TodoApp = () => {
 
   const todosCount = todos.length;
 
+  function handleFilterChange(e) {
+    setFilter(e.target.value);
+  }
+
+
+  // Filters
+
+  const [filter, setFilter] = useState("");
+  const [filterdUsers, setFilteredUsers] = useState([]);
+
+  useEffect(() => {
+    const filterdText = filter.toLowerCase();
+    setFilteredUsers(todos.filter((todo) => todo.toLowerCase().includes(filterdText)));
+  }, [filter, todos]);
+
+  // end Filters
+
   return (
 
     <div  className={ isDarkTheme ? 'app-wrapper dark-color' : 'app-wrapper light-color'}>
@@ -69,17 +86,20 @@ const TodoApp = () => {
               Tamna Tema
             </label>
             
-           
         </div>
 
         <Header />
+
+        <input  placeholder="Pretraži..." className={'search-input'} value={filter} onChange={handleFilterChange} />
         
         <div className={'form-wrapper'}  style={ { backgroundColor: isDarkTheme ? 'transparent' : '#161a2b', border: isDarkTheme ? '2px solid #359470' : '2px solid transparent'  } } >
         
           <TodoForm onSubmitText={handleSubmitForm} />
+
           <ShowHiddenLists isShown={show} >
-              <TodoLists todo={todos} onDeleteTodo={handleDeleteTodo} />
+              <TodoLists todo={filterdUsers} onDeleteTodo={handleDeleteTodo} />
           </ShowHiddenLists>
+
 
           <span>Ukupno: {todosCount} </span> 
         
