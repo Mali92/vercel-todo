@@ -54,17 +54,15 @@ const TodoApp = () => {
     setTodos(filteredTodos);
   };
 
-  const todosCount = todos.length;
-
   function handleFilterChange(e) {
     setFilter(e.target.value);
   }
-
 
   // Filters
 
   const [filter, setFilter] = useState("");
   const [filterdUsers, setFilteredUsers] = useState([]);
+  const filteredCount = filterdUsers.length;
 
   useEffect(() => {
     const filterdText = filter.toLowerCase();
@@ -91,7 +89,7 @@ const TodoApp = () => {
         <Header />
 
         <input  placeholder="Pretraži..." className={'search-input'} value={filter} onChange={handleFilterChange} />
-        
+
         <div className={'form-wrapper'}  style={ { backgroundColor: isDarkTheme ? 'transparent' : '#161a2b', border: isDarkTheme ? '2px solid #359470' : '2px solid transparent'  } } >
         
           <TodoForm onSubmitText={handleSubmitForm} />
@@ -101,7 +99,7 @@ const TodoApp = () => {
           </ShowHiddenLists>
 
 
-          <span>Ukupno: {todosCount} </span> 
+          <span>Ukupno: {filteredCount} </span> 
         
           <button className={'show'} onClick={handleShowToggle} > {  show ? <FontAwesomeIcon icon={faMinusCircle} /> :  <FontAwesomeIcon icon={faPlusCircle} />  } </button>
           <button className={'clearAll'} onClick={handleClearAllTodos}>  <FontAwesomeIcon icon={faTrashCan} /> </button>
