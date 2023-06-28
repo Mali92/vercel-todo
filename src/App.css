@@ -214,6 +214,11 @@ li {
   margin: 0;
 }
 
+
+.header h3 span {
+  text-transform: capitalize;
+}
+
 .header p {
   margin: 0;
   margin-bottom: 20px;

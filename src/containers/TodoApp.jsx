@@ -6,6 +6,7 @@ import Header from "../components/Header";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrashCan, faPlusCircle, faMinusCircle } from '@fortawesome/free-solid-svg-icons'
 import Quote from "../components/Quote";
+import axios from "axios";
 
 
 const TodoApp = () => {
@@ -14,23 +15,39 @@ const TodoApp = () => {
   const [show, setShow] = useState(true);
   const [isDarkTheme, setDarkTheme] = useState(false);
   const [quote, setQuote] = useState(null)
+  const [filter, setFilter] = useState("");
+  const [filterdUsers, setFilteredUsers] = useState([]);
 
   useEffect(() => {
-    const fetchQuotes = () => {
-      fetch("https://type.fit/api/quotes")
-      .then((res) => res.json())
-      .then((data) => {
-  
-        const randomQuote = (data) => {
-          return data[Math.floor(Math.random() * data.length)]
-        }
-      
-        const rnquote = randomQuote(data)
-        setQuote(rnquote)
-      })
-    }
-    fetchQuotes();
+
+    axios.get('https://type.fit/api/quotes')
+    .then( ( data ) => {
+      const randomQuote = (data) => {
+        return data[Math.floor(Math.random() * data.length)]
+      }
+      const rnquote = randomQuote(data.data)
+      setQuote(rnquote)
+    })   
+
   }, []);
+
+    // Filters
+
+  const filteredCount = filterdUsers.length;
+
+  useEffect(() => {
+
+    if( filter.length >= 3 ) {
+      const filterdText = filter.toLowerCase();
+      setFilteredUsers(todos.filter((todo) => todo.toLowerCase().includes(filterdText)));
+    } else {
+      setFilteredUsers(todos);
+    }
+
+  }, [filter, todos]);
+
+
+  // end Filters
 
 
   const handleChangeTheme = () => {
@@ -54,22 +71,10 @@ const TodoApp = () => {
     setTodos(filteredTodos);
   };
 
-  function handleFilterChange(e) {
+  const handleFilterChange = (e) => {
     setFilter(e.target.value);
   }
 
-  // Filters
-
-  const [filter, setFilter] = useState("");
-  const [filterdUsers, setFilteredUsers] = useState([]);
-  const filteredCount = filterdUsers.length;
-
-  useEffect(() => {
-    const filterdText = filter.toLowerCase();
-    setFilteredUsers(todos.filter((todo) => todo.toLowerCase().includes(filterdText)));
-  }, [filter, todos]);
-
-  // end Filters
 
   return (
 
