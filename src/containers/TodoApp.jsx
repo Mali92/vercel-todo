@@ -13,7 +13,7 @@ const TodoApp = () => {
   
   const [todos, setTodos] = useState([]);
   const [show, setShow] = useState(true);
-  const [isDarkTheme, setDarkTheme] = useState(false);
+  const [isDarkTheme, setDarkTheme] = useState(true);
   const [quote, setQuote] = useState(null)
   const [filter, setFilter] = useState("");
   const [filterdUsers, setFilteredUsers] = useState([]);
