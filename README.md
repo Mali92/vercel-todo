@@ -8,7 +8,7 @@ Welcome to the Todo App! This application helps you stay organized and manage yo
 - Delete todos ❌
 - Responsive design for mobile and desktop 📱💻
 
-- ## Demo 🎥
+ ## Demo 🎥
 
 Check out the live demo of the Todo App [here](https://apptodos.vercel.app/). Feel free to play around with it and see how it works!
 
