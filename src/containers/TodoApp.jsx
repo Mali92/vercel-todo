@@ -7,6 +7,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrashCan, faPlusCircle, faMinusCircle } from '@fortawesome/free-solid-svg-icons'
 import Quote from "../components/Quote";
 import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.min.css";
 
 
 const TodoApp = () => {
@@ -17,6 +19,27 @@ const TodoApp = () => {
   const [quote, setQuote] = useState(null)
   const [filter, setFilter] = useState("");
   const [filterdUsers, setFilteredUsers] = useState([]);
+
+
+    //  Notify Delete Alert
+
+    const toastSettingDelete =   {
+      position: "top-center",
+      autoClose: 500,
+      hideProgressBar: false,
+      closeOnClick: false,
+      pauseOnHover: false,
+      draggable: false,
+      progress: undefined,
+      theme: "light",
+    }
+  
+    const notifyDelete= () =>
+      toast.info("Obrisali ste taks!",
+      { ...toastSettingDelete }
+    );
+  
+    // End  Notify Delete Alert
 
 
   // LocalStorage
@@ -65,9 +88,8 @@ const TodoApp = () => {
 
   }, [filter, todos]);
 
-
+  
   // end Filters
-
 
   const handleChangeTheme = () => {
     setDarkTheme( perv => !perv );
@@ -88,6 +110,7 @@ const TodoApp = () => {
   const handleDeleteTodo = (deleteTodo) => {
     const filteredTodos = todos.filter( ( todosItem ) => todosItem !== deleteTodo )
     setTodos(filteredTodos);
+    notifyDelete();
   };
 
   const handleFilterChange = (e) => {

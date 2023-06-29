@@ -1,4 +1,6 @@
 import { Fragment, useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.min.css";
 
 const TodoForm = ({ onSubmitText }) => {
   const [val, setValue] = useState("");
@@ -8,15 +10,36 @@ const TodoForm = ({ onSubmitText }) => {
     setValue(val);
   };
 
+  //  Notify Succes Alert
+
+  const toastSettingSucces =   {
+    position: "top-center",
+    autoClose: 500,
+    hideProgressBar: false,
+    closeOnClick: false,
+    pauseOnHover: false,
+    draggable: false,
+    progress: undefined,
+    theme: "light",
+  }
+
+  const notifySucces = () =>
+    toast.success("Dodali ste taks!",
+    { ...toastSettingSucces }
+  );
+
+  // End  Notify Succes Alert
+
   const handleOnSubmitForm = (e) => {
     e.preventDefault();
     onSubmitText?.(val);
     setValue("");
-    setTimeout(() => alert('Dodali ste task!'), 500);
+    notifySucces();
   };
 
   return (
     <Fragment>
+      <ToastContainer />
       <h2>Šta planiraš danas da radiš?</h2>
       <form onSubmit={handleOnSubmitForm}>
         <input
@@ -26,9 +49,9 @@ const TodoForm = ({ onSubmitText }) => {
           onChange={handleClickChange}
           value={val}
           placeholder="Unesite nešto"
-          className={'input-change'}
+          className={"input-change"}
         />
-        <input type="submit" value={'Pošalji'} />
+        <input type="submit" value={"Pošalji"} />
       </form>
     </Fragment>
   );
