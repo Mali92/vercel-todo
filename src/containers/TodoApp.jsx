@@ -18,6 +18,25 @@ const TodoApp = () => {
   const [filter, setFilter] = useState("");
   const [filterdUsers, setFilteredUsers] = useState([]);
 
+
+  // LocalStorage
+
+  useEffect(() => {
+     // Učitavanje podataka iz localStorage prilikom montiranja komponente
+    const localStorageCustom = JSON.parse(localStorage.getItem('todos'));
+    if (localStorageCustom) {
+      setTodos(localStorageCustom);
+    }
+  }, []);
+
+  useEffect(() => {
+    // Ažuriranje localStorage kada se promeni stanje podataka
+    localStorage.setItem('todos', JSON.stringify(todos));
+  }, [todos]);
+
+// LocalStorage
+
+
   useEffect(() => {
 
     axios.get('https://type.fit/api/quotes')

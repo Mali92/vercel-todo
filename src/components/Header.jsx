@@ -11,9 +11,28 @@ const Header = () => {
 
   const [promptUserName, setUserName] = useState('')
 
+      // LocalStorage
+
+    useEffect(() => {
+      // Učitavanje podataka iz localStorage prilikom montiranja komponente
+      const localStorageCustom = JSON.parse(localStorage.getItem('userName'));
+      if (localStorageCustom) {
+        setUserName(localStorageCustom);
+      }
+    }, []);
+  
+    useEffect(() => {
+      // Ažuriranje localStorage kada se promeni stanje podataka
+      localStorage.setItem('userName', JSON.stringify(promptUserName));
+    }, [promptUserName]);
+   
+   // LocalStorage
+
+
   useEffect(() => {
     const promptUserName = prompt('Unesi ime korisnika!');
     setUserName(promptUserName);
+    
   }, [])
 
   const condicionalLogic = promptUserName ? <span>, { promptUserName ? promptUserName : '' }.</span> : '';
