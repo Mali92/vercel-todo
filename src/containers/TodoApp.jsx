@@ -133,6 +133,7 @@ const TodoApp = () => {
             
         </div>
 
+        <ToastContainer />
         <Header />
 
         <input  placeholder="Pretraži..." className={'search-input'} value={filter} onChange={handleFilterChange} />

@@ -1,6 +1,6 @@
 import { Fragment, useState } from "react";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.min.css";
+import { toast } from "react-toastify";
+
 
 const TodoForm = ({ onSubmitText }) => {
   const [val, setValue] = useState("");
@@ -39,7 +39,6 @@ const TodoForm = ({ onSubmitText }) => {
 
   return (
     <Fragment>
-      <ToastContainer />
       <h2>Šta planiraš danas da radiš?</h2>
       <form onSubmit={handleOnSubmitForm}>
         <input

@@ -5,35 +5,69 @@ import { faCalendarDays, faClock  } from '@fortawesome/free-solid-svg-icons'
 import dayjs from 'dayjs';
 import 'dayjs/locale/sr';
 import { useEffect, useState} from "react";
+import { toast } from "react-toastify";
 
 
 const Header = () => {
 
-  const [promptUserName, setUserName] = useState('')
+    //  Notify WELCOME Alert
 
-    // LocalStorage
+    const toastSettingWelcome =   {
+      position: "top-center",
+      autoClose: 3000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: false,
+      progress: undefined,
+      theme: "light",
+    }
 
-    useEffect(() => {
-      // Učitavanje podataka iz localStorage prilikom montiranja komponente
-      const localStorageCustom = JSON.parse(localStorage.getItem('userName'));
-      if (localStorageCustom) {
-        setUserName(localStorageCustom);
-      }
-    }, []);
+    const toastSettingError =   {
+      position: "top-center",
+      autoClose: 3000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: false,
+      progress: undefined,
+      theme: "light",
+    }
   
-    useEffect(() => {
-      // Ažuriranje localStorage kada se promeni stanje podataka
-      localStorage.setItem('userName', JSON.stringify(promptUserName));
-    }, [promptUserName]);
-   
-   // LocalStorage
+    const notifyWelcome = () =>
+      toast.success("Dobro došli na Todo aplikaciju!",
+      { ...toastSettingWelcome }
+    );
 
+    const notifyError = () =>
+    toast.error("Unesite Vaše korisničko ime prilikom sledećeg pokretanja aplikacije!!!",
+    { ...toastSettingError }
+  );
+  
+    // End  WELCOME Succes Alert
+
+  const [promptUserName, setUserName] = useState('');
 
   useEffect(() => {
-    const promptUserName = prompt('Unesi ime korisnika!');
-    setUserName(promptUserName);
-    
-  }, [])
+
+    const promptUserName = localStorage.getItem('userName');
+
+    if (promptUserName) {
+      setUserName(promptUserName);
+    } else {
+      const promptStorageValue = prompt('Unesite Vaše korisničko');
+      if (promptStorageValue) {
+        localStorage.setItem('userName', promptStorageValue);
+        setUserName(promptStorageValue);
+        notifyWelcome();
+      } else {
+        notifyError();
+      }
+    }
+
+   
+  }, []);
+
 
   const condicionalLogic = promptUserName ? <span>, { promptUserName ? promptUserName : '' }.</span> : '';
 
@@ -44,7 +78,7 @@ const Header = () => {
   const isHours = hours >= 6 && hours < 12 ? 'Dobro jutro' :  hours >= 12 && hours <= 18 ? 'Dobar dan' : hours >= 19 && hours <= 22 ? 'Dobro veče' : 'Laku noc';
 
   return (
-    
+        
     <div className={"header"}>
       <div className={'date-calendar'}>
         <span> <FontAwesomeIcon icon={faCalendarDays} /> {formattedDate} </span>
@@ -65,7 +99,6 @@ const Header = () => {
         <h3> { isHours }  { condicionalLogic } </h3>
 
       </div>
-
 
     </div>
   );
